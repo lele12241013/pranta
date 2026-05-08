@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mato em Camadas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Figtree:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="scene-shell">
+      <section class="scene" aria-label="Cena interativa com folhas sobrepostas">
+        <div id="heartRain" class="heart-rain"></div>
+
+        <div class="goal-zone" id="goalZone" aria-live="polite">
+          <img src="assets/goal.jpg" alt="Objetivo final" class="goal-image" />
+          <a class="click-btn" href="https://lele12241013.github.io/MA/">clique aqui</a>
+          <div class="celebration" id="celebration">
+            <div class="celebration-text">você é incrível</div>
+            <div class="hearts">
+              <span class="heart"></span>
+              <span class="heart"></span>
+              <span class="heart"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="leaf-stack" id="leafStack">
+          <img class="draggable-cover cover--plant" data-index="0" src="img/monstera-deliciosa-uma-planta-exuberante-com-folhagem-verde-vibrante.png" alt="Planta" draggable="false" />
+          <img class="draggable-cover cover--plant" data-index="1" src="img/pngwing.com.png" alt="Planta" draggable="false" />
+          <img class="draggable-cover cover--plant" data-index="2" src="img/pngwing.com (1).png" alt="Planta" draggable="false" />
+          <img class="draggable-cover cover--plant" data-index="3" src="img/pngwing.com (2).png" alt="Planta" draggable="false" />
+          <img class="draggable-cover cover--plant" data-index="4" src="img/pngwing.com (3).png" alt="Planta" draggable="false" />
+          <img class="draggable-cover cover--plant" data-index="5" src="img/pngwing.com (4).png" alt="Planta" draggable="false" />
+          <img class="draggable-cover cover--plant" data-index="6" src="img/pngwing.com (5).png" alt="Planta" draggable="false" />
+          <img class="draggable-cover cover--plant" data-index="7" src="img/pngwing.com (6).png" alt="Planta" draggable="false" />
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

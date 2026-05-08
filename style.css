@@ -1,0 +1,257 @@
+:root {
+  --bg-top: #dce8b9;
+  --bg-bottom: #8fb178;
+  --text-main: #1f281a;
+  --panel: #f4f8e8d9;
+  --soil: #6d4f32;
+  --soil-dark: #51361f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: "Figtree", "Segoe UI", sans-serif;
+  color: var(--text-main);
+  background: #ffe6f0;
+}
+
+.scene-shell {
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero {
+  display: none;
+}
+
+.scene {
+  width: 100%;
+  height: 100%;
+  background: #ffe6f0;
+  border: none;
+  border-radius: 0;
+  position: relative;
+  overflow: hidden;
+  box-shadow: none;
+}
+
+.goal-zone {
+  position: absolute;
+  left: 50%;
+  top: 55%;
+  transform: translate(-50%, -50%);
+  width: min(330px, 82vw);
+  text-align: center;
+  z-index: 1;
+  opacity: 0;
+  transition: transform 0.35s ease, filter 0.35s ease, opacity 0.3s ease;
+  filter: saturate(0.82) blur(1.6px);
+  pointer-events: none;
+}
+
+.goal-zone.revealed {
+  transform: translate(-50%, -50%) scale(1.04);
+  opacity: 1;
+  filter: saturate(1) blur(0);
+  z-index: 50;
+  pointer-events: auto;
+}
+
+.goal-image {
+  width: 100%;
+  display: block;
+  filter: drop-shadow(0 9px 10px #00000042);
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.goal-label {
+  display: none;
+}
+
+.click-btn {
+  display: block;
+  margin: 14px auto 0;
+  padding: 12px 36px;
+  font-size: clamp(16px, 3vw, 22px);
+  font-weight: 700;
+  font-family: 'Figtree', sans-serif;
+  background: #d946a5;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(217, 70, 165, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  text-decoration: none;
+  text-align: center;
+}
+
+.click-btn:hover {
+  transform: scale(1.07);
+  box-shadow: 0 6px 22px rgba(217, 70, 165, 0.5);
+}
+
+.click-btn:active {
+  transform: scale(0.97);
+}
+
+.leaf-stack {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+}
+
+.draggable-cover {
+  position: absolute;
+  width: clamp(230px, 39vw, 500px);
+  aspect-ratio: 1;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+  cursor: grab;
+  touch-action: none;
+  filter: drop-shadow(0 14px 10px #00000045);
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.cover--plant {
+  border: none;
+  border-radius: 0;
+}
+
+.draggable-cover.dragging {
+  cursor: grabbing;
+  transition: none;
+}
+
+.draggable-cover.cleared {
+  pointer-events: none;
+  opacity: 0;
+}
+
+.hud {
+  display: none;
+}
+
+.celebration {
+  position: absolute;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.5s ease 0.3s;
+  white-space: nowrap;
+}
+
+.goal-zone.revealed .celebration {
+  opacity: 1;
+}
+
+.celebration-text {
+  font-size: clamp(24px, 6vw, 48px);
+  font-weight: 800;
+  color: #d946a5;
+  text-shadow: 0 2px 8px rgba(217, 70, 165, 0.3);
+  margin-bottom: 12px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.hearts {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.heart {
+  font-size: clamp(20px, 5vw, 36px);
+  display: inline-block;
+  animation: float 2s ease-in-out infinite;
+}
+
+.heart:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.heart:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+.heart:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+.heart-rain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 200;
+}
+
+.rain-drop {
+  position: fixed;
+  font-size: 1.5rem;
+  top: -1vh;
+  pointer-events: none;
+  z-index: 200;
+  animation: fall 3s linear forwards;
+}
+
+@keyframes fall {
+  from {
+    transform: translateY(0vh) translateX(-10vw);
+  }
+  to {
+    transform: translateY(105vh) translateX(10vw);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+
+@media (max-width: 760px) {
+  .scene {
+    min-height: 470px;
+  }
+
+  .draggable-cover {
+    width: clamp(130px, 30vw, 190px);
+  }
+
+  .hud {
+    flex-direction: column;
+    text-align: center;
+    align-items: stretch;
+  }
+}
