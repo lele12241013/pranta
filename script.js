@@ -25,14 +25,14 @@ const basePlacement = [
 ];
 
 const mobilePlacement = [
-  { x: 0.14, y: 0.08, r: -13, s: 0.44 },
-  { x: 0.26, y: 0.05, r: 10, s: 0.43 },
-  { x: 0.38, y: 0.08, r: -7, s: 0.42 },
-  { x: 0.5, y: 0.11, r: 12, s: 0.41 },
-  { x: 0.16, y: 0.28, r: -11, s: 0.43 },
-  { x: 0.28, y: 0.31, r: 8, s: 0.42 },
-  { x: 0.4, y: 0.3, r: -9, s: 0.43 },
-  { x: 0.52, y: 0.28, r: 11, s: 0.41 },
+  { dx: -88, dy: -126, r: -13, s: 0.58 },
+  { dx: -22, dy: -134, r: 10, s: 0.57 },
+  { dx: 46, dy: -120, r: -7, s: 0.56 },
+  { dx: 98, dy: -98, r: 12, s: 0.55 },
+  { dx: -90, dy: -42, r: -11, s: 0.57 },
+  { dx: -24, dy: -30, r: 8, s: 0.56 },
+  { dx: 46, dy: -36, r: -9, s: 0.57 },
+  { dx: 102, dy: -50, r: 11, s: 0.55 },
 ];
 
 function placeCovers() {
@@ -40,16 +40,22 @@ function placeCovers() {
   const stackHeight = leafStack.clientHeight;
   const isMobile = window.matchMedia('(max-width: 760px)').matches;
   const placement = isMobile ? mobilePlacement : basePlacement;
-  const minSize = isMobile ? 140 : 300;
-  const maxSize = isMobile ? 260 : 620;
+  const minSize = isMobile ? 190 : 300;
+  const maxSize = isMobile ? 340 : 620;
+  const centerX = stackWidth * 0.5;
+  const centerY = stackHeight * 0.5;
 
   covers.forEach((cover, i) => {
-    const pos = placement[i] || { x: 0.24 + i * 0.03, y: isMobile ? 0.24 : 0.18, r: 0, s: isMobile ? 0.42 : 0.48 };
+    const pos = placement[i] || (isMobile
+      ? { dx: i * 16 - 56, dy: -80 + i * 6, r: 0, s: 0.56 }
+      : { x: 0.24 + i * 0.03, y: 0.18, r: 0, s: 0.48 });
     const z = covers.length - i;
     const size = Math.max(minSize, Math.min(maxSize, stackWidth * pos.s));
+    const left = isMobile ? Math.round(centerX + pos.dx - size / 2) : Math.round(stackWidth * pos.x);
+    const top = isMobile ? Math.round(centerY + pos.dy - size / 2) : Math.round(stackHeight * pos.y);
     cover.style.width = `${size}px`;
-    cover.style.left = `${Math.round(stackWidth * pos.x)}px`;
-    cover.style.top = `${Math.round(stackHeight * pos.y)}px`;
+    cover.style.left = `${left}px`;
+    cover.style.top = `${top}px`;
     cover.style.zIndex = String(z + 10);
     cover.dataset.baseRotate = String(pos.r);
     cover.style.transform = `translate(0px, 0px) rotate(${pos.r}deg)`;
