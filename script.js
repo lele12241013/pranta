@@ -24,14 +24,29 @@ const basePlacement = [
   { x: 0.47, y: 0.2, r: 12, s: 0.48 },
 ];
 
+const mobilePlacement = [
+  { x: 0.14, y: 0.08, r: -13, s: 0.44 },
+  { x: 0.26, y: 0.05, r: 10, s: 0.43 },
+  { x: 0.38, y: 0.08, r: -7, s: 0.42 },
+  { x: 0.5, y: 0.11, r: 12, s: 0.41 },
+  { x: 0.16, y: 0.28, r: -11, s: 0.43 },
+  { x: 0.28, y: 0.31, r: 8, s: 0.42 },
+  { x: 0.4, y: 0.3, r: -9, s: 0.43 },
+  { x: 0.52, y: 0.28, r: 11, s: 0.41 },
+];
+
 function placeCovers() {
   const stackWidth = leafStack.clientWidth;
   const stackHeight = leafStack.clientHeight;
+  const isMobile = window.matchMedia('(max-width: 760px)').matches;
+  const placement = isMobile ? mobilePlacement : basePlacement;
+  const minSize = isMobile ? 140 : 300;
+  const maxSize = isMobile ? 260 : 620;
 
   covers.forEach((cover, i) => {
-    const pos = basePlacement[i] || { x: 0.24 + i * 0.03, y: 0.18, r: 0, s: 0.48 };
+    const pos = placement[i] || { x: 0.24 + i * 0.03, y: isMobile ? 0.24 : 0.18, r: 0, s: isMobile ? 0.42 : 0.48 };
     const z = covers.length - i;
-    const size = Math.max(300, Math.min(620, stackWidth * pos.s));
+    const size = Math.max(minSize, Math.min(maxSize, stackWidth * pos.s));
     cover.style.width = `${size}px`;
     cover.style.left = `${Math.round(stackWidth * pos.x)}px`;
     cover.style.top = `${Math.round(stackHeight * pos.y)}px`;
